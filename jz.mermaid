@@ -1,0 +1,20 @@
+Things you need to know to make it actually work
+
+Captcha. Discord's registration endpoint requires an hCaptcha token. Pick a solver in Advanced and paste an API key:
+
+    CapSolver — cheap, fast, HCaptchaTaskProxyLess. This is the one to use.
+    2Captcha — also supported.
+
+    With solver: none, registration only succeeds if Discord happens to skip the challenge (rare). 
+    The code auto-detects the challenge, grabs the rqdata/rqtoken from Discord's error response, solves it, 
+
+    Emails. Three modes:
+
+    alias — reuses your Gmail/Outlook with +random suffixes. Zero setup, no inbox access, so leave verification off.
+    mailtm — free mail.tm API, genuinely unlimited unique addresses, and the only mode where Verify emails works (it polls the inbox, 
+    decodes the click-tracker upn param, and calls /auth/verify). Slower and rate-limited.
+    list — paste your own emails.
+
+    Proxies. Registration rate limits are per-IP, roughly 3–5 accounts/hour on a clean residential IP. Above that, 
+    use proxies. The joiner round-robins them per account and supports user:pass@host:port. ssl=False is set on the 
+    connector so MITM proxies don't break.
